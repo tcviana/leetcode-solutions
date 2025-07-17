@@ -32,21 +32,25 @@ n == ratings.length
 
 class Solution {
     fun candy(ratings: IntArray): Int {
-        val candies = IntArray(ratings.size) { 1 }
+        val size = ratings.size
+        val candies = IntArray(size) { 1 }
 
-        for (i in 1 until ratings.size) {
+        for (i in 1 until size) {
             if (ratings[i] > ratings[i-1]) {
                 candies[i] = candies[i-1] + 1
             }
         }
 
-        for (i in ratings.size-2 downTo 0) {
+        var sum = 0;
+        for (i in size-2 downTo 0) {
             if (ratings[i] > ratings[i+1]) {
                 candies[i] = maxOf(candies[i], candies[i+1] + 1)
             }
+            sum += candies[i]
         }
 
-        return candies.sum()
+        // variable sum bring more performance that use candies.sum() because avoid further processing
+        return sum + candies[size - 1]
 
     }
 }
