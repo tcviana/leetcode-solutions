@@ -7,9 +7,7 @@ class Solution {
         if (k < 0 || size < 2 || size == k || k>(Math.pow(10, 5)) || size >(Math.pow(10, 5))) 
             return;
 
-        while (k > size) {
-            k = k-size;
-        }
+        k = k%size;
         
         int index = k-1;
         int[] copy = new int[size--];
