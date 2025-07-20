@@ -13,8 +13,8 @@
 - 739
 ## Binary Search
 - 704
-  - 33
-  - 34
+- 33
+- 34
 ## HashMap / Frequência	
 - 1
 - 383
