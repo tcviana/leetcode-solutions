@@ -6,7 +6,7 @@ func merge(nums1 []int, m int, nums2 []int, n int)  {
    total := m+n-1
 
    for index2 >= 0 {
-    if index1 >0 && nums1[index1] >= nums2[index2] {
+    if index1 >=0 && nums1[index1] >= nums2[index2] {
         nums1[total] = nums1[index1]
         index1--
     } else {
