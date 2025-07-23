@@ -3,44 +3,43 @@
 class Solution {
     public String minWindow(String s, String t) {
         
-        if (s.length() < 1 || t.length() > s.length() || t.length() < 1) {
+        if (s.length() < t.length()) {
             return "";
         }
 
-        Set<Character> map = new HashSet<>();
-        Set<Character> set = new HashSet<>();
+        Map<Character, Integer> target = new HashMap<>();
+        Map<Character, Integer> window = new HashMap<>();
 
         for (char c : t.toCharArray()) {
-            map.add(c);
+            target.put(c, target.getOrDefault(c,0)+1);
         }
 
-        int sizeRequired = map.size();
+        int sizeMin = target.size();
         int count = 0, left = 0, right = 0; 
         int size = -1;
 
-        for (int i=0; i < s.length(); i++) {
+        for (int i=0, j=0; i < s.length(); i++) {
             char c = s.charAt(i);
+            window.put(c, window.getOrDefault(c,0)+1);
 
-            if (map.contains(c)) {
-                int j = i;
-                while (j<s.length()) {
-                    c = s.charAt(j);
-                    if (map.contains(c) && set.add(c)) {
-                        count++;
-                    }
-                    if (count == sizeRequired) {
-                        int length = j - i +1;
-                        if (size == -1 || size > length) {
-                            size = length;
-                            left = i;
-                            right = j;
-                        }
-                        break;
-                    }
-                    j++;
+            if (target.containsKey(c) && target.get(c).intValue() == window.get(c).intValue()) {
+                count++;
+            }
+
+            while (left<=right && count==sizeMin) {
+                int length = i-j +1;
+                if (size == -1 || size > length) {
+                    size = length;
+                    left = j;
+                    right = i;
                 }
-                set.clear();
-                count = 0;
+
+                c = s.charAt(j);
+                window.put(c, window.get(c)-1);
+                if (target.containsKey(c) && target.get(c).intValue() > window.get(c).intValue()) {
+                    count--;
+                }
+                j++;
             }
         }
 
