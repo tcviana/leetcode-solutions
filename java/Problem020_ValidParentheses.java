@@ -2,21 +2,19 @@
 
 class Solution {
 
-    Map<Character, Character> pairCloseParentheses = Map.of(')','(',']','[','}','{');
-    List<Character> stack = new ArrayList<>();
+    private static Map<Character, Character> pairCloseParentheses = Map.of(')','(',']','[','}','{');
+    private Deque<Character> stack = new ArrayDeque<>();
 
     public boolean isValid(String s) {
 
         for (char c : s.toCharArray()) {
             if (openParentheses(c)) {
-                stack.add(c);
-                continue;
-            } 
-            if (validClose(c)) {
-                stack.remove(stack.size()-1);
-                continue;
-            } 
-            return false;
+                stack.push(c);
+            } else if (!stack.isEmpty() && validClose(c)) {
+                stack.pop();
+            } else {
+                return false;
+            }
         }
         return stack.isEmpty();
     }
@@ -26,11 +24,6 @@ class Solution {
     }
 
     private boolean validClose(char c) {
-        int size = stack.size();
-
-        if (size > 0) {
-            return stack.get(size-1) == pairCloseParentheses.get(c);
-        }
-        return false;
+        return stack.peek() == pairCloseParentheses.get(c);
     }
 }
