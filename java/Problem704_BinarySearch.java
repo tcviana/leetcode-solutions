@@ -13,28 +13,24 @@ class Solution {
             index = Math.abs(size / 2);
         }
 
-        int value = retrieveValueByIndex(nums, index);
+        int value = nums[index];
 
         if (target == value) {
             return index;
         }
-        int start = target<value ? 0 : target;
-        int end = target>value ? size : target;
-        
+        int start = target>value ? index : 0;
+        int end   = target<value ? index : size;
+
         return retrieveValueByStartEndIndex(nums,target,start,end);
     }
 
     private int retrieveValueByStartEndIndex(int[] nums, int target, int start, int end) {
         for (int i=start; i<nums.length; i++) {
             if (target == nums[i]) {
-                return nums[i];
+                return i;
             }
         }
         return DEFAULT;
-    }
-
-    private int retrieveValueByIndex(int[] nums, int index) {
-        return nums[index];
     }
 
 }
