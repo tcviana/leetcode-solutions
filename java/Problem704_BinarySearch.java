@@ -5,31 +5,21 @@ class Solution {
 
     public int search(int[] nums, int target) {
         int size = nums.length;
-        int index = 0;
+        int start = 0, end = size-1;
 
-        if (size < 1) return DEFAULT;
+        while (start <= end) {
+            int index = Math.abs((end+start) / 2);
+            int value = nums[index];
 
-        if (size > 3) {
-            index = Math.abs(size / 2);
-        }
-
-        int value = nums[index];
-
-        if (target == value) {
-            return index;
-        }
-        int start = target>value ? index : 0;
-        int end   = target<value ? index : size;
-
-        return retrieveValueByStartEndIndex(nums,target,start,end);
-    }
-
-    private int retrieveValueByStartEndIndex(int[] nums, int target, int start, int end) {
-        for (int i=start; i<nums.length; i++) {
-            if (target == nums[i]) {
-                return i;
+            if (target == value) {
+                return index;
             }
+
+            // new index to start/end different of target becouse the target is different that my result
+            start = target>value ? index+1 : start;
+            end   = target<value ? index-1 : end;
         }
+        
         return DEFAULT;
     }
 
