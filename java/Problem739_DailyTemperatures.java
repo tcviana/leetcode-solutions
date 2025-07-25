@@ -14,7 +14,7 @@ class Solution {
         int value = 0;
         for (int j=index+1; j<temp.length; j++) {
             if (temp[index]<temp[j]) {
-                value = j;
+                value = j-index;
                 break;
             }
         }
