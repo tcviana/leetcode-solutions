@@ -10,21 +10,23 @@ class Solution {
             note.add(c);
         }
 
-        while (left<=right) {
+        while (left<=right && !note.isEmpty()) {
             for (int i=0; i<note.size(); i++) {
                 if (magazine.charAt(left) == note.get(i)) {
                     left++;
                     note.remove(i--);
-                    continue;
+                    break;
                 }
                 if (magazine.charAt(right) == note.get(i)) {
                     right--;
                     note.remove(i--);
-                    continue;
+                    break;
+                }
+                if (i==note.size()-1) {
+                    left++;
+                    right--;
                 }
             }
-            left++;
-            right--;
         }
 
         return note.isEmpty();
