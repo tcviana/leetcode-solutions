@@ -2,16 +2,16 @@
 
 func convert(s string, numRows int) string {
 
-    if numRows == 1 {
+    if numRows == 1 || len(s) <= numRows {
         return s
     }
 
-    m := make(map[int]string, numRows)
+    rows := make([]string, numRows)
     row := 0
     direction := -1
 
     for _, c := range s {
-        m[row] += string(c)
+        rows[row] += string(c)
         
         if (row == 0 || row == numRows-1) {
             direction *= -1
@@ -22,7 +22,7 @@ func convert(s string, numRows int) string {
     var sb strings.Builder
 
     for i:=0; i<numRows; i++ {
-        sb.WriteString(m[i])
+        sb.WriteString(rows[i])
     }
 
     return sb.String()
