@@ -2,14 +2,12 @@
 
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
-        i,j=0,0
-        size_s = len(s)
-        size_t = len(t)
+        init = 0
+        for i in t:
+            if init >= len(s):
+                break
+            if s[init] == i:
+                init += 1
 
-        while i<size_s and j<size_t:
-            if s[i]==t[j]:
-                i=i+1
-            j=j+1
-        
-        return i==size_s
+        return init == len(s)
         
