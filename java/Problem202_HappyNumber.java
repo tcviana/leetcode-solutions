@@ -1,20 +1,24 @@
 // https://leetcode.com/problems/happy-number/
 
 class Solution {
-    public boolean isHappy(int n) {
-        int size = n.length();
+    public boolean isHappy(int n) {  
+        Set<Integer> seen = new HashSet<>();
 
-        while (size > 1) {
-            int sum = 0;
-
-            for (int i=0; i<size; i++) {
-                
-            }
-            size = n.length();
-        }
-
+        // evict loop
+        while (n!=1 && !seen.contains(n)) {
+            seen.add(n);
+            n = sumPairs(n);
+        }    
         return n==1;
+    }
 
-        
+    private int sumPairs(int n) {
+        int sum = 0;
+        while (n > 0) {
+            int num = n%10;
+            sum += num*num;
+            n /= 10;
+        }
+        return sum;
     }
 }
