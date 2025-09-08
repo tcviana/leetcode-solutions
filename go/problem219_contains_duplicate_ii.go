@@ -1,14 +1,17 @@
 // https://leetcode.com/problems/contains-duplicate-ii 
 
 func containsNearbyDuplicate(nums []int, k int) bool {
-    seen := make(map[int]int)
+    window := make(map[int]struct{})
 
     for i, num := range nums {
-        index, exist := seen[num]
-        if exist && i-index<=k {
+        if _, exists := window[num]; exists {
             return true
         } 
-        seen[num] = i
+        window[num] = struct{}{}
+
+        if len(window) > k {
+            delete(window, nums[i-k])    
+        }
     }
 
     return false
