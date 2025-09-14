@@ -29,7 +29,7 @@ class Solution {
 }
 
 // java 8
-class Solution {
+class Solution2 {
     public boolean isValid(String s) {
 
         Map<Character,Character> map = new HashMap<>();
