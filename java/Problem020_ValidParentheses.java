@@ -27,3 +27,28 @@ class Solution {
         return stack.peek() == pairCloseParentheses.get(c);
     }
 }
+
+// java 8
+class Solution2 {
+    public boolean isValid(String s) {
+
+        Map<Character,Character> map = new HashMap<>();
+        map.put(')','(');
+        map.put('}','{');
+        map.put(']','[');
+
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for (char c : s.toCharArray()) {
+            if (map.containsKey(c)) {
+                char value = stack.isEmpty() ? '#' : stack.pop();
+                if (map.get(c) != value) return false;
+            } else {
+                stack.push(c);
+            }
+        }
+
+        return stack.isEmpty();
+        
+    }
+}
