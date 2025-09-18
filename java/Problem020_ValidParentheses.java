@@ -52,3 +52,46 @@ class Solution2 {
         
     }
 }
+
+// solution 3, java 8
+class Solution3 {
+    public boolean isValid(String s) {
+
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for(int i=0; i<s.length(); i++){
+            char c = s.charAt(i);
+
+            if (isOpenBracket(c)) {
+                char pair = closeBracket(c);
+                stack.push(pair);
+            } else if (isCloseBracket(c)) {
+                if (stack.isEmpty() || stack.pop() != c) 
+                    return false;
+            }
+        }
+        
+        return stack.isEmpty();
+    }
+
+    private boolean isCloseBracket(char c) {
+        if (c==')' || c==']' || c=='}') 
+            return true;
+        else 
+            return false;
+    }
+
+    private boolean isOpenBracket(char c) {
+        if (c=='(' || c=='[' || c=='{') 
+            return true;
+        else 
+            return false;
+    }
+
+    private char closeBracket(char c) {
+        if (c == '(') return ')';
+        if (c == '[') return ']';
+        if (c == '{') return '}';
+        return c;
+    }
+}
