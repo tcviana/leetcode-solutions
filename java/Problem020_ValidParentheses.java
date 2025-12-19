@@ -95,3 +95,33 @@ class Solution3 {
         return c;
     }
 }
+
+// solution 4, 2025-12-19
+class Solution {
+    private Map<Character,Character> brackets = Map.of('(',')','{','}','[',']');
+
+    public boolean isValid(String s) {
+
+        Deque<Character> stack = new ArrayDeque<>();
+        
+        for (char c : s.toCharArray()) {
+            if (isOpen(c)) {
+                stack.push(brackets.get(c));
+            } else if (isClose(c)) {
+                if (stack.isEmpty() || stack.pop() != c) 
+                    return false;
+            }
+        }
+
+        return stack.isEmpty();
+    }
+
+    private boolean isOpen(char c) {
+        return brackets.containsKey(c);
+    }
+
+    private boolean isClose(char c) {
+        return brackets.containsValue(c);
+
+    }
+}
